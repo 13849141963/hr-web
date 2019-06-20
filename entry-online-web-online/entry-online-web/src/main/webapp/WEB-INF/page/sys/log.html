@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>日志管理</title> 
+#parse("sys/header.html")
+ <script type="text/javascript" src="${rc.contextPath}/statics/plugins/My97DatePicker/WdatePicker.js"></script>
+	<link rel="stylesheet" href="${rc.contextPath}/statics/css/byb.css">
+</head>
+<body>
+	<div id="rrapp">
+		<div class="grid-btn" style="text-align:right">
+			<input type="text" v-model="searchData.beginDate" onfocus="WdatePicker()" readonly="readonly" class="dtpN inputB applyDateBegin" style="width: 90px;height:31px" placeholder="开始日期"/>
+			<input type="text" v-model="searchData.endDate"  onfocus="WdatePicker()" readonly="readonly" class="dtpN inputB applyDateEnd" style="width: 90px;height:31px" placeholder="结束日期"/>
+			<input type="text" v-model="searchData.methodName" class="inputB" style="width: 80px;height:31px" placeholder="方法名"/>
+			<input type="text" v-model="searchData.inputParameter" class="inputB" style="width: 80px;height:31px" placeholder="入参"/>
+			<input type="text" v-model="searchData.outputParameter" class="inputB" style="width: 80px;height:31px" placeholder="出参"/>
+			<input type="text" v-model="searchData.logId" class="inputB" style="width: 80px;height:31px" placeholder="logId"/>
+			<input type="text" v-model="searchData.uniqNo" class="inputB" style="width: 80px;height:31px" placeholder="唯一号"/>
+			<select v-model="searchData.dataSource" class="inputB"  style="width: 90px;height:30px;padding:0px;">
+                <option value="">客户端</option>
+                <option v-for="option in clients" v-bind:value="option.id" >
+                    {{ option.name }}
+                </option>
+            </select>
+			<button type="button" class="btn btn-primary btn-sm btn-toggledisabled" @click="search"><i class="fa fa-search"></i>&nbsp;&nbsp;查询</button>
+		</div>
+		<table id="jqGrid"></table>
+		<div id="jqGridPager"></div>
+	</div>
+	<script src="${rc.contextPath}/js/sys/log.js?_${date.systemTime}"></script>
+</body>
+</html>

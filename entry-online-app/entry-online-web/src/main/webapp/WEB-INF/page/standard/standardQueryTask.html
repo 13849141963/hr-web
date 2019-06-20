@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>入职任务管理</title>
+    #parse("sys/header.html")
+    <script type="text/javascript"
+            src="${rc.contextPath}/statics/plugins/My97DatePicker/WdatePicker.js?v=_${date.systemTime}"></script>
+    <link rel="stylesheet" href="${rc.contextPath}/statics/css/byb.css?v=_${date.systemTime}">
+    <style>
+      .edui-default .edui-editor-bottomContainer{
+      	height:0;
+      }
+     #jqGrid td{
+        vertical-align:middle;
+      }
+      #edui_fixedlayer{
+        z-index:1051 !important;
+      }    
+      #gotoTaskCreate{
+      	margin-top:10px;
+      } 
+    </style>
+</head>
+<body>
+<div id="rrapp" >
+    <table id="jqGrid"></table>
+    <div id="jqGridPager"></div>
+    <span><button id ='gotoTaskCreate' class='btn btn-primary' type='button'>添加入职任务</button></span>
+</div>
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">二维码、链接</h4>
+            </div>
+            <div class="modal-body" >
+	           <!--  <span>适用此入职模板的员工可扫描此二维码进行注册使用入职功能:</span> -->
+	           <div style="text-align:center">
+	              <img id="pcImg" src=""/><br>
+	               <a id="erWeiMaA" style="margin-bottom:25px;display:inline-block" >点击下载</a>
+	           </div>	           
+            </div>
+           <!--  <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div> -->
+        </div>
+    </div>
+</div>
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="editGuides" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" >修改办理指南</h4>
+            </div>                        
+            <div class="modal-body">             
+               <script id="querytGuideEditor" name="content" type="text/plain" ></script>            
+            </div>        
+           <div class="modal-footer">
+                <button type="button" id="querytGuideSureBtn"  class="btn btn-primary" style="background-color: #337ab7;border-color: #2e6da4;">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div> 
+        </div>
+    </div>
+</div>
+<!-- 配置文件 -->
+<script type="text/javascript" src="${rc.contextPath}/statics/plugins/ueditor/ueditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="${rc.contextPath}/statics/plugins/ueditor/ueditor.all.js"></script>
+<script type="text/javascript" charset="utf-8" src="${rc.contextPath}/statics/plugins/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script src="${rc.contextPath}/js/standard/standardQueryTask.js?v=_${date.systemTime}"></script>
+<script src="${rc.contextPath}/statics/libs/bootstrap-modal.js"></script>
+
+
+</body>
+</html>

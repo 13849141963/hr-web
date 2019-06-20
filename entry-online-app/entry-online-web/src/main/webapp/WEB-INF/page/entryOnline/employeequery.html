@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>客户信息</title>
+
+		<!-- 引入样式 -->
+		<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<!-- 引入组件库 -->
+		<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<style>
+			.el-table {
+				border-color: #cfcfcf;
+				font-size:10px;
+			}
+			
+			.el-table td {
+				border-color: #cfcfcf;
+				text-align: center;
+			}
+			
+			.el-table td,
+			.el-table th {
+				padding: 0
+			}
+			
+			.el-table .table-head-th {
+				background: #f6f5f3;
+				color: #000000;
+				border-color: #cfcfcf;
+				text-align: center;
+				padding: 7px 0;
+			}
+			
+			.table—_footer {
+				width: 100%;
+				height: 40px;
+				background: #D7D7D7;
+			}
+			#app{
+				width:170%;
+			
+			}
+			
+		</style>
+	</head>
+
+	<body>
+		<div id="app">
+			<el-form :inline="true" :model="form" class="demo-form-inline" size="mini">
+				<el-form-item label="姓名:">
+					<el-input v-model="form.empName"></el-input>
+				</el-form-item>
+				<el-form-item label="唯一号:">
+					<el-input v-model="form.uniqNo"></el-input>
+				</el-form-item>
+				<el-form-item label="证件号码:">
+					<el-input v-model="form.idCard"></el-input>
+				</el-form-item>
+				<el-form-item label="客户名称:">
+					<el-select v-model="form.custIds" placeholder="" @change="onchange">
+						<el-option v-for="item in campanyList" :label="item.custName" :value="item.custId" :key="item.custId">
+						</el-option>
+					</el-select>
+				</el-form-item>
+				<el-form-item label="业务客户名称:">
+					<el-select v-model="form.busiCustIds" placeholder="">
+						<slot>
+							<el-option label="全部" value=""></el-option>
+						</slot>
+						<el-option v-for="item in y" :label="item.busiCustName" :value="item.busiCustId" :key="item.busiCustId">
+						</el-option>
+					</el-select>
+				</el-form-item>
+
+				<el-form-item>
+					<el-button type="primary" @click="onSubmit">查询</el-button>
+				</el-form-item>
+			</el-form>
+
+			<div>
+				<el-table ref="tableDataFrom" 
+				v-loading="loading"
+				:data="tableData" :header-cell-class-name="tableheaderClassName" border style="width: 100%">
+					<el-table-column type="expand">
+						<template slot-scope="props">
+							<el-table :data="props.row.detailedInformation" :header-cell-class-name="tableheaderClassName" border style="width: 100%">
+								<el-table-column v-for=" (item,index) in colList1" 
+								:prop="item.prop"
+								 :label="item.label" 
+								 :key="index"
+								 :width="item.labelWidth?item.labelWidth:''">
+								</el-table-column>
+							</el-table>
+
+						</template>
+					</el-table-column>
+
+					<el-table-column v-for=" (item,index) in colList" 
+					:prop="item.prop" 
+					:label="item.label" 
+					:key="index" 
+					:width="item.labelWidth?item.labelWidth:''">
+					</el-table-column>
+				</el-table>
+				<div class="table—_footer"></div>
+
+			</div>
+			<!--分页模板-->
+			<div class="block">
+				
+				  <el-pagination
+				      @size-change="handleSizeChange"
+				      @current-change="handleCurrentChange"
+				      :current-page.sync="currentPage4"		      
+				      :page-size="10"
+				       prev-text="上一页"
+				       next-text="下一页"
+				       layout="total, prev, pager, next, jumper"
+				      :total="totalCount"
+				     >
+   				 </el-pagination>
+			</div>
+			<!--end-->
+
+			<!--  :totalCount 总条数    totalPages:总页数  currentPage4：请求哪一页    记住这两个参数是要传进来的  怎么传呢  ？  看好-->
+
+		</div>
+	</body>
+	<script src="${rc.contextPath}/statics/libs/jquery.min.js"></script>
+	<script>
+		new Vue({
+			el: "#app",
+			data: {
+				tableData: [],
+				tableData1: [],
+				loading:false,
+				totalPages:1,
+				currentPage4:1,
+				totalCount:1,
+				form: {
+					custIds: '',
+					busiCustIds: '',
+					uniqNo: '',
+					empName: '',
+					idCardNo: '',
+					pageIndex: 1,
+					pageSize: 10
+				},
+				campanyList: [],
+				y: [],
+				
+				colList: [{
+						prop: 'uniqNo',
+						label: '唯一号',labelWidth:'200'
+					},
+					{
+						prop: 'empName',
+						label: '员工姓名',labelWidth:'150'
+					},
+					{
+						prop: 'sex',
+						label: '性别',labelWidth:'70'
+					},
+					{
+						prop: 'birthday',
+						label: '出生日期',labelWidth:'200'
+					},
+					{
+						prop: 'idCard',
+						label: '证件号码'
+					},
+					{
+						prop: 'nation',
+						label: '民族',labelWidth:'150'
+					},
+					{
+						prop: 'education',
+						label: '学历' ,labelWidth:'90'
+					},
+					{
+						prop: 'account',
+						label: '户口' 
+					},
+					{
+						prop: 'businessUnit',
+						label: '业务部'
+					},
+					{
+						prop: 'employeeStatus',
+						label: '员工状态',labelWidth:'250'
+					},
+				],
+				colList1: [{
+						prop: 'uniqNo',
+						label: '唯一号',labelWidth:'150'
+					},
+					{
+						prop: 'empName',
+						label: '姓名'
+					},
+					{
+						prop: 'cerType',
+						label: '证件类型'
+					},
+					{
+						prop: 'idCardNo',
+						label: '证件号码',labelWidth:'200'
+					},
+					{
+						prop: 'sex',
+						label: '性别',labelWidth:'70'
+					},
+					{
+						prop: 'birthDate',
+						label: '出生日期',labelWidth:'110'
+					},
+					{
+						prop: 'householdAddrType',
+						label: '户口所在地类型',labelWidth:'130'
+					},
+					{
+						prop: 'recAddress',
+						label: '档案所在地',labelWidth:'100'
+					},
+					{
+						prop: 'conAddr',
+						label: '联系地址',labelWidth:'500'
+					},
+					{
+						prop: 'conType',
+						label: '默认联系方式类型',labelWidth:'140'
+					},
+					{
+						prop: 'conTel',
+						label: '默认联系号码',labelWidth:'150'
+					},
+					{
+						prop: 'workPermitNo',
+						label: '居住证编号',labelWidth:'230'
+					},
+					{
+						prop: 'empType',
+						label: '缴费人员类别',labelWidth:'130'
+					},
+					{
+						prop: 'country',
+						label: '国别',labelWidth:'200'
+					},
+					{
+						prop: 'doorState',
+						label: '户口状态',labelWidth:'130'
+					},
+					{
+						prop: 'isForeigner',
+						label: '是否外籍人',labelWidth:'90'
+					},
+				]
+
+			},
+			methods: {
+				onchange() {
+					this.form.busiCustIds = '';
+					this.searchY(this.form.custIds)
+				},
+
+				/* 业务客户 */
+				searchY(custIds) {
+					let _this = this;
+					_this.y = [];
+					$.ajax({
+						type: 'GET',
+						url: '../supinfo/getBusiCustListByCustId',
+						data: {
+							'custId': custIds
+						},
+						dataType: "json",
+						success: function(data) {
+							data.successResult.forEach(function(item) {
+								_this.y.push(item)
+							})
+						}
+					})
+				},
+				tableheaderClassName({
+					row,
+					rowIndex
+				}) {
+					return "table-head-th";
+				},
+				//分页
+				handleSizeChange(val) { //分页事件
+					
+					console.log(`每页 ${val} 条`);
+				},
+				handleCurrentChange(val) {
+				
+					this.form.pageIndex = val;
+					
+					this.getEmpInfos(this.form)
+					
+				},
+				onSubmit() {
+					console.log(this.form)						
+					this.getEmpInfos(this.form)
+				},
+				searchCampany(url, data, type) {
+					let _this = this;
+					$.ajax({
+						type: type,
+						url: url,
+						data: data,	
+						dataType: "json",
+						success: function(data) {
+							var arr = [];
+							/* _this.custId = data.successResult[0].custId; */
+							/* _this.form.custName = data.successResult[0].custId; */
+							this.campanyList = data.successResult;
+							data.successResult.forEach(function(item) {
+								_this.campanyList.push(item)
+								arr.push(item.custId)
+							})
+							var obj = {
+								custName: '全部',
+								custId: arr.join(",")
+							}
+							_this.campanyList.unshift(obj);
+							_this.form.custIds = obj.custId;
+							_this.getEmpInfos(_this.form)
+
+						}
+					})
+				},
+				
+				/*查询的接口*/
+				getEmpInfos(query) {
+					let _this = this;
+					_this.loading = true;
+					$.ajax({
+						url: '../employeequery/getEmpInfos',
+						type: 'post',
+						data: query,
+						contentType:'application/x-www-form-urlencoded; charset=UTF-8',
+						success: function(data) {
+							_this.tableData = [];
+							_this.loading = false;
+							var data = JSON.parse(data);
+//							:totalCount 总条数    totalPages:总页数  currentPage4：请求哪一页   
+							console.log(data)
+							_this.totalCount = data.successResult.totalCount;
+							_this.totalPages = data.successResult.totalPages;
+							console.log(_this.totalPages)
+							_this.currentPage4 = data.successResult.currentPage;
+							if(data.successResult){
+								data.successResult.pageRecords.forEach(function(item){
+									_this._newAdvanceList(item,query).then(function(res){
+										
+										 _this.$set(item,'detailedInformation',res)
+									})
+									_this.tableData.push(item)
+								})
+								
+							}
+						},
+						error: function(res) {
+							alert("请求错误")
+						}
+					})
+				},
+				//获取嵌套 数据
+				_newAdvanceList(item, queryData) {
+					var _this = this;
+					let query = {
+						uniqNo: item.uniqNo,						
+					}
+					return new Promise(function(resolve, reject) {
+						$.ajax({
+							type: 'GET',
+							url: '../empinexit/getEmpBasicInfo',
+							data: query,
+							dataType: "json",
+							success: function(data) {
+								if(data.successResult) {
+									resolve([data.successResult])
+								}
+							},
+							error: function(req) {
+								reject(req)
+							}
+						})
+					})
+				},
+		
+			},
+			mounted() {
+			
+				
+			},
+			created() {
+				this.searchCampany('../customer/getCustInfo', '', 'get');
+				
+				
+					
+				
+			}
+		})
+	</script>
+
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>全国政策查询</title>
+
+<!-- 引入样式 -->
+<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<!-- 引入组件库 -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<style>
+	.el-table{
+		border-color:#cfcfcf;
+		font-size:10px;
+		
+	}
+	.el-table td{
+		border-color:#cfcfcf;	
+		text-align: center;
+		
+	}
+	.el-table td, .el-table th{
+		padding:0
+	}
+	.el-table .table-head-th {
+	    background: #f6f5f3;
+	    color: #000000;
+	    border-color:#cfcfcf;
+	    text-align: center;
+	    padding:7px 0;
+	  }
+	  .table—_footer{
+	  	width:100%;
+	  	height:40px;
+	  	background:#D7D7D7;
+	  }
+	  #app{
+			width:170%;
+		}
+</style>
+</head>
+<body>
+	<div id="app">
+		<el-form :inline="true" :model="form" class="demo-form-inline" size="mini">
+			<el-form-item label="地区:">
+				 <el-input v-model="form.areaName"></el-input>
+		    </el-form-item>
+			<el-form-item label="类别:">
+				 <el-select v-model="form.cateId" placeholder="">
+					 <el-option label="全部"   value=""></el-option>
+					 <el-option label="社保缴纳类" value="1"></el-option>
+					 <el-option label="社保手续类" value="2"></el-option>
+					 <el-option label="社保待遇享受类" value="3"></el-option>
+				 </el-select>
+			</el-form-item>
+				 <el-form-item label="发文年月:">
+					 <el-date-picker
+						v-model="form.dispTime"
+						type="date"
+						value-format="yyyy:MM"
+						placeholder="选择日期">
+	    			 </el-date-picker>
+				  </el-form-item>
+				  <el-form-item label="生效时间:">
+					  <el-date-picker
+					      v-model="form.stanEffectTime"
+					      type="date"
+					      value-format="yyyy:MM"
+					      placeholder="选择日期">
+    				</el-date-picker>
+				  </el-form-item>
+				
+				  <el-form-item label="标题:">
+					   <el-input v-model="form.title"></el-input>
+				  </el-form-item>
+				 <el-form-item>
+				   		<el-button type="primary" @click="onSubmit">查询</el-button>
+				  </el-form-item>
+		</el-form>
+		<div>
+			<el-table
+				 ref="tableDataFrom"
+	    		:data="tableData"
+	    		:header-cell-class-name="tableheaderClassName"
+	   			 border
+	    		 style="width: 100%"
+	    		>
+	    		 
+			    	<el-table-column v-for=" (item,index) in colList"
+	    				:prop="item.prop"
+			      		:label="item.label"
+			      		:key="index"
+			      		 :width="item.labelWidth?item.labelWidth:''" >
+	    			</el-table-column>
+			    	<el-table-column
+			     		 prop="areaAddDesc"
+			      		 label="操作">
+			      		 <template slot-scope="scope">
+			      		 	<el-tooltip content="相关附件下载" placement="top">
+			      		 		<a :href="`../policyquery/getNationwidFileItem?id=${scope.row.id}`" >下载</a>
+			      		 	</el-tooltip>
+			      		 </template>
+			    	</el-table-column>
+			   </el-table>
+	 	 	   <div class="table—_footer"></div>
+ 	 	</div>
+ 	 	<!--分页模板-->
+			<div class="block" v-if="info.successResult">
+		
+				  <el-pagination
+				      @size-change="handleSizeChange"
+				      @current-change="handleCurrentChange"
+				      :current-page.sync="form.pageIndex"		      
+				      :page-size="10"
+				       prev-text="上一页"
+				       next-text="下一页"
+				       layout="total, prev, pager, next, jumper"
+				      :total="info.successResult.totalCount"
+				     >
+   				 </el-pagination>
+			</div>
+ 	</div>
+</body>
+<script src="${rc.contextPath}/statics/libs/jquery.min.js"></script>
+<script>
+	new Vue({
+		el:"#app",
+		data:{
+			tableData:[],
+			form:{
+				areaName:'',
+				cateId:'',
+				dispTime:'',
+				stanEffectTime:'',
+				title:'',
+				pageIndex:1,
+				pageSize:10
+			},
+			totalPages:1,
+			currentPage4:1,
+			totalCount:1,
+			colList:[
+				{prop:'areaName',label:'地区',labelWidth:'70'},
+				{prop:'title',label:'标题'},
+				{prop:'cate',label:'类别',labelWidth:'100'},
+				{prop:'type',label:'分类',labelWidth:'80'},
+				{prop:'stanEffectTime',label:'标准生效时间',labelWidth:'110'},
+				{prop:'dispUnit',label:'发文单位'},
+				{prop:'dispTime',label:'发文时间',labelWidth:'110'},
+				{prop:'suppName',label:'供应商'},
+				{prop:'claimExeTime',label:'要求执行时间',labelWidth:'110'},
+				{prop:'baseDeclEndDay',label:'基数申报截止日',labelWidth:'140'},
+				{prop:'areaAddDesc',label:'地区补充说明',labelWidth:'120'},
+				{prop:'remark',label:'备注'},
+			],
+		 info:''
+		},
+		methods:{
+			   tableheaderClassName({row, rowIndex}) {
+			        return "table-head-th";
+			      },
+		
+			    //分页
+					handleSizeChange(val) { 
+						
+						console.log(`每页 ${val} 条`);
+					},
+					handleCurrentChange(val) { 						
+						this.form.pageIndex = val;						
+						this.getNatiPollcyMain(this.form)
+					},
+				        onSubmit(){
+							this.form.pageIndex = 1;
+				        	this.getNatiPollcyMain(this.form)
+				        },
+				        
+				        getNatiPollcyMain(query){
+				        	let _this = this;
+							_this.loading = true;
+							$.ajax({
+								url:'../policyquery/getNatiPollcyMain',
+								type:'post',
+								data:query,
+								success:function(data){
+									_this.tableData = [];
+									_this.loading = false;
+									var data = JSON.parse(data)
+									_this.info = data;
+									console.log(data)
+									
+									if(data.successResult){
+										data.successResult.pageRecords.forEach(function(item){
+									
+											_this.tableData.push(item)
+										})
+									}
+								},error:function(res){
+									alert("请求错误")
+								}
+							})
+				        }
+				      
+		},
+		mounted:function(){
+		},
+		created(){
+			this.getNatiPollcyMain(this.form)
+		
+		}
+	})
+</script>
+</html>

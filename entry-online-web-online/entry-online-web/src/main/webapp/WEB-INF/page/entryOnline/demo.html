@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>副本列表</title> 
+#parse("sys/header.html")
+</head>
+<body>
+	<div id="rrapp">
+	<div class="grid-btn">
+		#if($shiro.hasPermission("reimb:document:detail"))
+		<button type="button"  class="btn btn-primary btn-sm btn-toggledisabled" @click="detail"><i class="fa fa-plus-square"></i>&nbsp;&nbsp;详情</button>
+		#end
+		#if($shiro.hasPermission("reimb:document:check"))
+		<button type="button"  class="btn btn-primary btn-sm btn-toggledisabled" @click="check"><i class="fa fa-edit"></i>&nbsp;&nbsp;审核</button>
+		#end
+	</div>
+		<table id="jqGrid"></table>
+		<div id="jqGridPager"></div>
+	</div>
+	<script src="${rc.contextPath}/js/entryonline/demo.js?v=_${date.systemTime}"></script>
+</body>
+</html>

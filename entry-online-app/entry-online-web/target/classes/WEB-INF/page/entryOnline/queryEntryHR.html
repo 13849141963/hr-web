@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>员工入职情况查询</title>
+    #parse("sys/header.html")
+    <style>
+    	a:visit{
+    		text-decoration: none;
+    	}
+    	
+    	a:hover{
+    		text-decoration: none;
+    	}
+    	a{
+    		text-decoration: none;
+    	}
+        .row_se{
+            padding:8px 0;
+            /* border-bottom:1px solid #eeeeee; */
+        }
+        .row_se label{
+            width: 100px;
+            margin-left: 50px;
+            font-weight:normal;
+        }
+        .row_se label:first-child{
+            margin-left:0;
+        }
+        .grid-btn{
+            margin-bottom:10px;
+        }
+    </style>
+	<link rel="stylesheet" href="${rc.contextPath}/statics/css/byb.css?v=_${date.systemTime}">
+</head>
+
+<body>
+    <div id="rrapp">
+        <div class="grid-btn" >
+            <div class="row_se">
+         	    <label>按公司名称检索：</label>
+                <select v-model="searchData.busiCustNos" class="inputB"  style="width: 150px;height:30px;padding:0px;">
+                    <option value="">请选择公司名称</option>
+                    <option v-for="option in companyNames" v-bind:value="option.busiCustId">
+                        {{ option.busiCustName }}
+                    </option>
+                </select>
+                <label>按手续状态检索：</label>
+                <select v-model="searchData.taskStatus" class="inputB"  style="width: 150px;height:30px;padding:0px;">
+                    <option value="">请选择手续状态</option>
+                    <option v-for="option in TaskStatus" v-bind:value="option.itemCode">
+                        {{ option.itemName }}
+                    </option>
+                </select>
+                <label>按员工类型检索：</label>
+                <select v-model="searchData.jobType" class="inputB"  style="width: 150px;height:30px;padding:0px;">
+                    <option value="">请选择员工类型</option>
+                    <option v-for="option in JobTypes" v-bind:value="option.itemCode">
+                        {{ option.itemName }}
+                    </option>
+                </select>
+            </div>
+            <div class="row_se">
+                <label>按员工职务检索：</label>
+                <select v-model="searchData.empType" class="inputB"  style="width: 150px;height:30px;padding:0px;">
+                    <option value="">请选择员工职务</option>
+                    <option v-for="option in EmpTypes" v-bind:value="option.itemCode">
+                        {{ option.itemName }}
+                    </option>
+                </select>
+                
+                <label>按员工信息检索:</label>
+                <select v-model="searchData.userInfoType" class="inputB"  style="width: 150px;height:30px;padding:0px;">
+                    <option value="">请选择员工信息</option>
+                    <option v-for="option in staffMessage" v-bind:value="option.itemCode">
+                        {{ option.itemName }}
+                    </option>
+                </select>
+                <input type="text" placeholder="手机号/姓名/身份证号" v-model="searchData.userInfoContent" class="inputB"  style="width: 150px;height:30px;padding:0 5px;">
+                
+                <button type="button" class="btn btn-primary btn-sm btn-toggledisabled" @click="search" style="margin-left:90px;"><i class="fa fa-search"></i>&nbsp;&nbsp;点击搜索</button>
+            </div>
+        </div>
+        <table id="jqGrid"></table>
+        <div id="jqGridPager"></div>
+    </div>
+    <script src="${rc.contextPath}/js/entryonline/queryEntryHR.js?v=_${date.systemTime}"></script>
+</body>
+
+</html>

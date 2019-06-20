@@ -1,0 +1,138 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>入职任务创建</title> 
+#parse("sys/header.html")
+<link rel="stylesheet" href="${rc.contextPath}/statics/css/byb.css?v=_${date.systemTime}">
+<link href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .rz_list strong{
+            margin-top:10px;
+            display: inline-block;
+        }
+        .rz_list ul{
+            margin-left:30px;
+            list-style: none;
+        }
+        .rz_list ul li{
+            margin-top:10px;
+        }
+    </style>
+</head>
+<body>
+	<div id="rrapp" class="rz_list">
+		<strong>1.请您输入任务名称:</strong>
+		<input type="text" id="taskName" v-model="taskCreate.taskName" class="inputB" style="width: 200px;height:31px" placeholder="如：奇虎社保入职模板" /><br>
+		
+	    <strong>2.请选择客户公司:</strong>
+<!-- 	<div class="checkbox">
+		<div v-for="(item,index) in taskCreate.customerCompany" >
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox"  :id="'a'+index" :value="item.orgId" v-model="submitTaskName.checkedCustomerIds"/>
+			<label :for="'a'+index">{{item.orgName}}</label>
+		</div>
+  	</div> -->
+  	
+        <ul>
+           <li v-for="item in taskCreate.customerCompany">
+              <input type="checkbox" name="customerCompany" :value="item.busiCustId+'&'+item.busiCustName">{{item.busiCustName}}
+           </li>
+        </ul>
+  	
+	    <strong>3.请选择需要员工在线办理的入职手续:</strong>
+        <ul>
+           <li v-for="item in taskCreate.proceduresForEntry">
+              <input type="checkbox" name="entryProcedure" :value="item.procedureId">{{item.procedureName}}
+           </li>
+        </ul>
+	
+	
+  	
+  	    <strong>4、请选择需要告知的员工入职办理指南信息：</strong>
+        <ul>
+           <li v-for="item in taskCreate.guideInfo">
+              <input type="checkbox" name="guideInfo" :value="item.guideId">{{item.guideName}}
+           </li>
+        </ul>
+
+  	    <button id="submit" type="button" class="btn btn-primary" @click="submit" style="background-color: #337ab7;border-color: #2e6da4; margin-top:10px;">确认提交</button>
+	</div>
+	
+	
+	<script src="${rc.contextPath}/js/entryonline/taskCreate.js?v=_${date.systemTime}"></script>
+	<script src="${rc.contextPath}/statics/libs/jquery.min.js"></script>
+</body>
+
+<script type="text/javascript">
+   $(function () {
+          //获取已选的复选框的值
+          var guideInfoArray = new Array();//放已经选择的checkbox的value
+          var entryProcedure = new Array();
+          var customerCompany = new Array();
+          
+          $('#submit').click(function() {
+        	  var taskName = $("#taskName").val();
+        	  if(taskName == ''){
+        		  //alert("任务名称不能为空");
+                  layer.alert("任务名称不能为空", {icon: 6});
+                  return;
+        	  }
+        	  //客户公司
+              customerCompany.length=0;
+              $('[name=customerCompany]:checkbox:checked').each(function() {
+            	  customerCompany.push($(this).val());
+              });
+              
+              if (customerCompany.length==0) {
+                  //alert("请选择客户公司");
+                  layer.alert("请选择客户公司", {icon: 6});
+                  return;
+              }
+              console.log("已选复选框的值："+customerCompany+"\n"); 
+              
+              //入职手续
+              entryProcedure.length=0;
+              $('[name=entryProcedure]:checkbox:checked').each(function() {
+            	  entryProcedure.push($(this).val());
+              });
+              if (entryProcedure.length==0) {
+                  //alert("请选择入职手续");
+                  layer.alert("请选择入职手续", {icon: 6});
+                  return;
+              }
+              console.log("已选复选框的值："+entryProcedure+"\n");
+              
+              
+        	  //指南信息
+        	  guideInfoArray.length=0;
+              $('[name=guideInfo]:checkbox:checked').each(function() {
+            	  guideInfoArray.push($(this).val());
+              });
+              if (guideInfoArray.length==0) {
+                  //alert("请选择指南信息");
+                  layer.alert("请选择指南信息", {icon: 6});
+                  return;
+              }
+            console.log("已选复选框的值："+guideInfoArray+"\n");  
+            
+            var data = {'taskName':taskName,'checkedCustomerIds':customerCompany,'guideList':guideInfoArray,'processList':entryProcedure};  
+          	$.ajax({
+				type: "POST",
+			    url: '../entryOnline/addEntryTask?_' + $.now(),
+			    traditional: true,
+			    data:data,
+			    dataType:'json',
+			    success: function(data){
+			    	if(data.code == 0){
+			    		parent.layer.msg("入职任务创建成功！",{ time:2000,icon:1});
+                        window.parent.document.getElementById("12_menuId").click();
+                    }else{
+						parent.layer.msg(data.errorMsg,{ time:2000,icon:1});
+					}
+				}
+			});
+          });
+     })
+</script>
+</html>

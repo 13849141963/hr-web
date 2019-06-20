@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>无数据</title>
+    #parse("sys/header.html")
+</head>
+<body>
+<script>
+    $(function () {
+        layer.alert("没有数据可供下载!", {icon: 6}, function(){
+            //window.parent.document.getElementById("14_menuId").click();
+            window.parent.document.getElementsByClassName("active")[0].getChildFrame();
+            window.location.href='queryEntry.html';
+        });
+    })
+</script>
+</body>
+</html>

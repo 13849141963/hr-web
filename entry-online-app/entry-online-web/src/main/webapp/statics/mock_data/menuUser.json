@@ -1,0 +1,144 @@
+{
+	"menuList": [{
+		"icon": "fa fa-plus-square",
+		"list": [{
+			"icon": "fa fa-user",
+			"list": null,
+			"menuId": 11,
+			"name": "入职任务创建",
+			"type": 1,
+			"url": "entryOnline/taskCreate.html"
+		}, {
+			"icon": "fa fa-user-secret",
+			"list": null,
+			"menuId": 12,
+			"name": "入职任务查询",
+			"type": 1,
+			"url": "entryOnline/queryTask.html"
+		}, {
+			"icon": "fa fa-share",
+			"list": null,
+			"menuId": 14,
+			"name": "员工入职情况查询",
+			"type": 1,
+			"url": "entryOnline/queryEntry.html"
+		}, {
+			"icon": "fa fa-user-secret",
+			"list": null,
+			"menuId": 15,
+			"name": "员工入职情况查询(HR端)",
+			"type": 1,
+			"url": "entryOnline/queryEntryHR.html"
+		}, {
+			"icon": "fa fa-user-secret",
+			"list": null,
+			"menuId": 16,
+			"name": "客户信息",
+			"type": 1,
+			"url": "entryOnline/customersevivce.html"
+		}, {
+			"icon": "fa fa-user-secret",
+			"list": null,
+			"menuId": 17,
+			"name": "产品供应商服务信息",
+			"type": 1,
+			"url": "entryOnline/supinfo.html"
+		}, {
+			"icon": "fa fa-user-secret",
+			"list": null,
+			"menuId": 18,
+			"name": "员工入离职统计",
+			"type": 1,
+			"url": "entryOnline/empinexit.html"
+		}, {
+			"icon": "fa fa-user-secret",
+			"list": null,
+			"menuId": 19,
+			"name": "员工入职手续办理",
+			"type": 1,
+			"url": "entryOnline/empentryhandle.html"
+		}, {
+			"icon": "fa fa-user-secret",
+			"list": null,
+			"menuId": 20,
+			"name": "员工查询",
+			"type": 1,
+			"url": "entryOnline/employeequery.html"
+		}, {
+			"icon": "fa fa-user-secret",
+			"list": null,
+			"menuId": 21,
+			"name": "全国政策查询",
+			"type": 1,
+			"url": "entryOnline/policyquery.html"
+		}, {
+			"icon": "fa fa-user-secret",
+			"list": null,
+			"menuId": 21,
+			"name": "社保计算器",
+			"type": 1,
+			"url": "entryOnline/hfcalculator.html"
+		}],
+		"menuId": 10,
+		"name": "Onsite管理",
+		"type": 0,
+		"url": ""
+	},{
+		"icon": "fa fa-plus-square",
+		"list": [{
+			"icon": "fa fa-user",
+			"list": null,
+			"menuId": 11,
+			"name": "入职任务创建",
+			"type": 1,
+			"url": "entryOnline/taskCreate.html"
+		}, {
+			"icon": "fa fa-user-secret",
+			"list": null,
+			"menuId": 12,
+			"name": "入职任务查询",
+			"type": 1,
+			"url": "entryOnline/queryTask.html"
+		}, {
+			"icon": "fa fa-share",
+			"list": null,
+			"menuId": 14,
+			"name": "员工入职情况查询",
+			"type": 1,
+			"url": "entryOnline/queryEntry.html"
+		}, {
+			"icon": "fa fa-user-secret",
+			"list": null,
+			"menuId": 15,
+			"name": "员工入职情况查询(HR端)",
+			"type": 1,
+			"url": "entryOnline/queryEntryHR.html"
+		}, {
+			"icon": "fa fa-user-secret",
+			"list": null,
+			"menuId": 16,
+			"name": "客户信息",
+			"type": 1,
+			"url": "entryOnline/customersevivce.html"
+		}, {
+			"icon": "fa fa-user-secret",
+			"list": null,
+			"menuId": 17,
+			"name": "产品供应商服务信息",
+			"type": 1,
+			"url": "entryOnline/supinfo.html"
+		}, {
+			"icon": "fa fa-user-secret",
+			"list": null,
+			"menuId": 18,
+			"name": "员工入离职统计",
+			"type": 1,
+			"url": "entryOnline/empinexit.html"
+		}],
+		"menuId": 10,
+		"name": "standardOnsite管理",
+		"type": 0,
+		"url": ""
+	}],
+	"code": 0
+}

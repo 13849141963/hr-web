@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>副本详情</title> #parse("sys/header.html")
+<link rel="stylesheet" href="${rc.contextPath}/statics/css/byb.css?v=_${date.systemTime}">
+<script src="${rc.contextPath}/js/carousel.js?v=_${date.systemTime}"></script>
+</head>
+<body>
+	
+	<div id="rrapp">
+		<div class="grid-btn">
+		   <button type="button" class="btn btn-warning btn-sm btn-toggledisabled" @click="goBack">
+				<i class="fa fa-reply"></i>&nbsp;&nbsp;返回
+			</button>
+			<button type="button" class="btn btn-primary btn-sm btn-toggledisabled" @click="reimbProDetail">
+				<i class="fa fa-bars"></i>&nbsp;&nbsp;福利项目明细
+			</button>
+			<button type="button" class="btn btn-primary btn-sm btn-toggledisabled" @click="reimbRecord">
+				<i class="fa fa-book"></i>&nbsp;&nbsp;历史报销记录
+			</button>
+		</div>
+		<table id="jqGrid"></table>
+		<div class="tabbable" style="margin-top: 5px">
+			<ul class="nav nav-tabs">
+				<li class="active"><a href="#tab1" data-toggle="tab">收据副本</a></li>
+				<li><a href="#tab2" data-toggle="tab">处方</a></li>
+				<li><a href="#tab3" data-toggle="tab">检查化验报告</a></li>
+			</ul>
+			<div class="tab-content">
+				<div class="tab-pane active" id="tab1">
+					<div class="leftB">
+						<div class="banner">
+							<ul>
+								<li class="on">1</li>
+								<li>2</li>
+								<li>3</li>
+								<li>4</li>
+							</ul>
+							<div class="banner_list">
+								<a href="javascript:void(0)" class="imageViewBtn"><img
+									src="http://v2.bootcss.com/assets/img/bootstrap-mdo-sfmoma-01.jpg" /></a>
+								<a href="javascript:void(0)" class="imageViewBtn"><img
+									src="http://v2.bootcss.com/assets/img/bootstrap-mdo-sfmoma-03.jpg" /></a>
+								<a href="javascript:void(0)" class="imageViewBtn"><img
+									src="http://v2.bootcss.com/assets/img/bootstrap-mdo-sfmoma-01.jpg" /></a>
+								<a href="javascript:void(0)" class="imageViewBtn"><img
+									src="http://v2.bootcss.com/assets/img/bootstrap-mdo-sfmoma-02.jpg" /></a>
+							</div>
+						</div>
+						<div id="imgAttr1">
+							<div style="margin-top: 10px">
+								<label class="radio-inline"> 
+								<input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked/>
+									审核通过
+								</label> 
+								<label class="radio-inline"> 
+								<input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"/>
+									审核不通过
+								</label>
+							</div>
+							<div class="divItem">
+							    <label style="padding-left:10px">科室：</label>
+								<input type="text" class="inputB" style="width: 160px"placeholder="科室" /> 
+								<label style="padding-left:10px">疾病类型：</label>
+								<input type="text" class="inputB" style="width: 160px" placeholder="疾病类型 " /> 
+								<label style="padding-left:10px">金额：</label>
+								<input type="text" class="inputB" style="width: 160px" placeholder="金额" />
+							</div>
+							<div class="divItem">
+							    <label style="width: 81px;text-align: right;">西药费 </label>
+								<input type="text" value="0.00" class="inputB" style="width: 83px"/> 
+								<label style="width: 81px;text-align: right;">中成药费</label>
+								<input type="text" value="0.00" class="inputB" style="width: 83px"/> 
+								<label style="width: 81px;text-align: right;">草药费</label>
+								<input type="text" value="0.00" class="inputB" style="width: 83px"/>
+								<label style="width: 81px;text-align: right;">诊查费</label>
+								<input type="text" value="0.00" class="inputB" style="width: 83px"/>
+								<br>
+								<label style="width: 81px;text-align: right;">卫生材料费</label>
+								<input type="text" value="0.00" class="inputB" style="width: 83px"/>
+								<label style="width: 81px;text-align: right;">床位费  </label>
+								<input type="text" value="0.00" class="inputB" style="width: 83px"/>
+								<label style="width: 81px;text-align: right;">手术费  </label>
+								<input type="text" value="0.00" class="inputB" style="width: 83px"/>
+								<label style="width: 81px;text-align: right;">化验费  </label>
+								<input type="text" value="0.00" class="inputB" style="width: 83px"/>
+							    <br>
+							    <label style="width: 81px;text-align: right;">其他费</label>
+								<input type="text" value="0.00" class="inputB" style="width: 83px" />
+								<label style="width: 81px;text-align: right;">护理费  </label>
+								<input type="text" value="0.00" class="inputB" style="width: 83px"/>
+								<label style="width: 81px;text-align: right;">检查费  </label>
+								<input type="text" value="0.00" class="inputB" style="width: 83px"/>
+								<label style="width: 81px;text-align: right;">治疗费 </label>
+								<input type="text" value="0.00" class="inputB" style="width: 83px"/>
+							    <br>
+							    <label style="width: 81px;text-align: right;">特需费 </label>
+								<input type="text" value="0.00" class="inputB" style="width: 83px"/>
+								<label style="width: 81px;text-align: right;">输血费 </label>
+								<input type="text" value="0.00" class="inputB" style="width: 83px"/>
+								<label style="width: 81px;text-align: right;">放射费 </label>
+								<input type="text" value="0.00" class="inputB" style="width: 83px"/>
+								<label style="width: 81px;text-align: right;">挂号费  </label>
+								<input type="text" value="0.00" class="inputB" style="width: 83px"/>
+							    <br>
+							    <label style="width: 81px;text-align: right;">总额1 </label>
+								<input type="text" value="0.00" class="inputB" style="width: 83px"/>
+							</div>
+							<div class="divItem">
+							    <label style="text-align: right;">医保范围内金额 </label>
+								<input type="text" value="0.00" class="inputB" style="width: 83px"/>
+								<label style="width: 81px;text-align: right;">自付二 </label>
+								<input type="text" value="0.00" class="inputB" style="width: 83px"/>
+								<label style="width: 81px;text-align: right;">自费 </label>
+								<input type="text" value="0.00" class="inputB" style="width: 83px"/>
+								<label style="width: 81px;text-align: right;">总额2</label>
+								<input type="text" value="0.00" class="inputB" style="width: 83px"/>				
+							</div>
+							<div class="divItem">
+							    <label>合理金额  </label>
+								<input type="text" value="0.00" class="inputB" style="width: 83px"/>
+								<label>特殊合理金额 </label>
+								<input type="text" value="0.00" class="inputB" style="width: 83px"/>
+								<label>既往症合理金额 </label>
+								<input type="text" value="0.00" class="inputB" style="width: 83px"/>
+								<label>特需合理金额</label>
+								<input type="text" value="0.00" class="inputB" style="width: 83px"/>				
+							    <br>
+							    <label>基金支付</label>
+								<input type="text" value="0.00" class="inputB" style="width: 83px"/>
+							</div>
+							<div class="divItem">
+							   <label class="labelB">历次审批意见：</label> <br>
+							   <textarea rows="4" class="textareaB" style="width:97%" placeholder="历次审批意见"></textarea>
+							</div>
+							<div class="divItem">
+							   <label class="labelB">数据验证：</label> <br>
+							   <textarea rows="4" class="textareaB" style="width:97%" placeholder="数据验证"></textarea>
+							</div>
+							<div class="divItem" style="text-align: center;">
+							   <button class="btn btn-primary" type="button">保存</button>
+							   <button class="btn btn-primary" type="button">审核完成</button>
+							   <button class="btn btn-warning" type="button" @click="goBack">返回</button>
+							</div>
+						</div>
+					    <div id="imgAttr2" style="display:none"><h1>2222</h1></div>
+					    <div id="imgAttr3" style="display:none"><h1>3333</h1></div>
+					    <div id="imgAttr4" style="display:none"><h1>4444</h1></div>
+					</div>
+					<div id="imgCost1" class="rightB">
+						<div style="margin-top: 8px;">
+							<div class="divB">
+								<label class="labelB">医保范围内扣除金额：</label> 
+								<v-select v-model="selected" :debounce="250" :on-search="getOptions" :options="options" placeholder="请输入金额" label="full_name" class="ebfwn"></v-select>
+							</div>
+							<div class="divB">
+								<label class="labelB">扣除明细：</label> <br>
+								<textarea rows="2" class="textareaB" placeholder="扣除明细"></textarea>
+							</div>
+							<div class="divB">
+								<label class="labelB">特需费用扣除明细：</label> <br>
+								<textarea rows="2" class="textareaB" placeholder="特需费用扣除明细"></textarea>
+							</div>
+							<div class="divB">
+								<label class="labelB">超量用药扣除明细：</label>
+								<div>
+									<input type="text" class="inputB" style="width: 98px" placeholder="药品" />
+									<input type="text" class="inputB" style="width: 98px" placeholder="数量" /> 
+									<input type="text" class="inputB" style="width: 98px" placeholder="金额" />
+									<button type="button" class="btn btn-primary btn-sm btn-toggledisabled" onclick="domOperate.addSuperMedicine(this)">添加</button>
+							    </div>
+							</div>
+							<div class="divB">
+								<label class="labelB">非适应症用药扣除明细：</label>
+								<div>
+									<input type="text" class="inputB" style="width: 98px" placeholder="药品" />
+									<input type="text" class="inputB" style="width: 98px" placeholder="金额" />
+									<button type="button" class="btn btn-primary btn-sm btn-toggledisabled" onclick="domOperate.addAdaptMedicine(this)">添加</button>
+									<textarea rows="2" class="textareaB" placeholder="现诊断"></textarea>
+								</div>
+							</div>
+							<div class="divB">
+								<label class="labelB">乙类扣除明细：</label>
+								<div>
+								    <input type="text" class="inputB" style="width: 80px" placeholder="药品" />
+									<input type="text" class="inputB" style="width: 80px" placeholder="金额" /> x 
+									<input type="text" class="inputB" style="width: 80px" placeholder="报销比例" />= 
+									<label>324.98</label>
+									<button type="button" class="btn btn-primary btn-sm btn-toggledisabled" onclick="domOperate.addYiTypeMedicine(this)">添加</button>
+							    </div>
+							</div>
+							<div class="divB">
+								<label class="labelB">丙类扣除明细：</label>
+								<div>
+									<input type="text" class="inputB" style="width: 80px" placeholder="药品" />
+									<input type="text" class="inputB" style="width: 80px" placeholder="金额" /> x 
+									<input type="text" class="inputB" style="width: 80px" placeholder="报销比例" />= 
+									<label>324.98</label>
+									<button type="button" class="btn btn-primary btn-sm btn-toggledisabled" onclick="domOperate.addBingTypeMedicine(this)">添加</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				    <div id="imgCost2" class="rightB" style="display:none"><h1>2222</h1></div>
+				    <div id="imgCost3" class="rightB" style="display:none"><h1>3333</h1></div>
+				    <div id="imgCost4" class="rightB" style="display:none"><h1>4444</h1></div>
+				</div>
+				<div class="tab-pane" id="tab2">
+					<p>Howdy, I'm in Section 2.</p>
+				</div>
+				<div class="tab-pane" id="tab3">
+					<p>Howdy, I'm in Section 3.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script
+		src="${rc.contextPath}/js/entryonline/demo_detail.js?v=_${date.systemTime}"></script>
+</body>
+</html>

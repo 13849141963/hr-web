@@ -1,0 +1,368 @@
+ <!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>产品供应商服务信息</title>
+
+<!-- 引入样式 -->
+<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<!-- 引入组件库 -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<style>
+		.el-table{
+			border-color:#cfcfcf;
+			font-size:10px;
+			
+		}
+		.el-table td{
+			border-color:#cfcfcf;	
+			text-align: center;
+			
+		}
+		.el-table td, .el-table th{
+			padding:0
+		}
+		.el-table .table-head-th {
+		    background: #f6f5f3;
+		    color: #000000;
+		    border-color:#cfcfcf;
+		    text-align: center;
+		    padding:7px 0;
+		  }
+		  .table—_footer{
+		  	width:100%;
+		  	height:40px;
+		  	background:#D7D7D7;
+		  }
+		  .block{
+		  	margin:10px 0;
+		  }
+			#app{
+				width:170%;
+			
+			}
+</style>
+</head>
+<body style="overflow:scroll;width:100%">
+    <div id="app" >
+		<el-form :inline="true" :model="form" class="demo-form-inline" size="mini">
+				  <el-form-item label="客户:">
+					    <el-select v-model="form.custIds" placeholder=""  @change="onchange">
+					    	<el-option 
+					     	 	v-for="item in campanyList"
+						     	:label="item.custName" 
+						     	:value="item.custId" 
+						     	:key="item.custId">
+					     	</el-option>
+					    </el-select>
+				  </el-form-item>
+				  <el-form-item label="业务客户:">
+					    <el-select v-model="form.busiCustIds" @change="onchange1" placeholder="">
+					   	 	<slot>
+					    		<el-option label="全部" value=""></el-option>
+					    	</slot>
+					     	<el-option 
+					     	 v-for="item in y"
+						     	:label="item.busiCustName" 
+						     	:value="item.busiCustId" 
+						     	:key="item.busiCustId">
+					     	</el-option>
+					    </el-select>
+				  </el-form-item>
+				   <el-form-item label="合同:">
+					    <el-select v-model="form.custConIds" @change="onchange2" placeholder="">
+					    	<slot>
+					    		<el-option label="全部" value=""></el-option>
+					    	</slot>
+					    	<el-option 
+					     	 v-for="item in h"
+						     	:label="item.conName" 
+						     	:value="item.conId" 
+						     	:key="item.conId">
+					     	</el-option>
+					    </el-select>
+				  </el-form-item>
+				   <el-form-item label="合同附件:">
+					    <el-select v-model="form.conAcceIds" placeholder="">
+					    <slot>
+					    		<el-option label="全部" value=""></el-option>
+					    	</slot>
+					    <el-option 
+					     	 v-for="item in f"
+						     	:label="item.acceName" 
+						     	:value="item.acceId" 
+						     	:key="item.acceId">
+					     	</el-option>
+					    </el-select>
+				  </el-form-item>
+				 
+				  <el-form-item>
+				   		<el-button type="primary" @click="onSubmit">查询</el-button>
+				  </el-form-item>
+		  </el-form>
+	<div>
+	<el-table ref="tableDataFrom"
+				v-loading="loading"
+				element-loading-text="拼命加载中"
+	    		:data="tableData"
+	    		:header-cell-class-name="tableheaderClassName"
+	   			 border
+	    		 style="width: 100%">
+	    			<el-table-column v-for="(item,index) in colList" :width="item.labelWidth?item.labelWidth:''"
+	    				:prop="item.prop"
+			      		:label="item.label"
+			      		:key="index">
+	    			</el-table-column>
+				    
+ 		</el-table>
+ 		<div class="table—_footer"></div>
+ 	   <!--分页模板-->
+			<div class="block">
+				
+				  <el-pagination
+				      @size-change="handleSizeChange"
+				      @current-change="handleCurrentChange"
+				      :current-page.sync="currentPage4"		      
+				      :page-size="10"
+				       prev-text="上一页"
+				       next-text="下一页"
+				       layout="total, prev, pager, next, jumper"
+				      :total="totalCount"
+				     >
+   				 </el-pagination>
+			</div>
+	    <div style= "font-size: 16px;color: #006BB6;font-weight: bold;margin-top: 15px;margin-bottom: 5px;">合计</div>
+			 
+			 <el-table ref="tableDataFrom"
+		    		:data="tableData6"
+		    		:header-cell-class-name="tableheaderClassName"
+		   			 border
+		    		 style="width: 100%">
+ 					<el-table-column
+			      		prop="custSum"
+			      		label="客户总数">
+			    	</el-table-column>
+			    	<el-table-column
+			      		prop="busiCustSum"
+			      		label="业务客户总数">
+			   		 </el-table-column>
+			    	 <el-table-column
+			     		 prop="conSum"
+			      		 label="合同总数">
+			    	</el-table-column>
+			    	<el-table-column
+			     		 prop="conAcceSum"
+			      		 label="合同附件总数">
+			    	</el-table-column>
+			    	<el-table-column
+			     		 prop="areaSum"
+			      		 label="涉及地区的数量">
+			    	</el-table-column>
+			    	<el-table-column
+			     		 prop="suppliserSum"
+			      		 label="涉及供应商数量">
+			    	</el-table-column>
+			 </el-table>
+	 	 	<div class="table—_footer"></div>
+	   </div>
+    </div>
+</body>
+<script src="${rc.contextPath}/statics/libs/jquery.min.js"></script>
+<script>
+	new Vue({
+		el:"#app",
+		data:{
+			tableData:[],
+			tableData6: [],
+			form:{
+				custIds:'',   		 //客户
+				busiCustIds:'',  	//业务客户
+				custConIds:'',		// 合同
+				conAcceIds:'',		// 合同附件
+				pageIndex:1,
+				pageSize:10
+			},
+			totalPages:1,
+			currentPage4:1,
+			totalCount:1,
+			loading:false,
+			AllcustIds:'',
+			colList:[
+			    {prop:'orgName',label:'业务部',labelWidth:'70'},
+			    {prop:'userName',label:'业务员',labelWidth:'150'},
+			    {prop:'busiCustName',label:'业务客户名称'},
+			    {prop:'conName',label:'合同名称'},
+			    {prop:'conAcceName',label:'合同附件名称'},
+			    {prop:'areaName',label:'地区',labelWidth:'70'},
+			    {prop:'prodName',label:'产品名称',labelWidth:'150'},
+			    {prop:'suppName',label:'产品供应商',labelWidth:'230'},
+			    {prop:'suppContName',label:'供应商联系人',labelWidth:'150'},
+			    {prop:'suppTel',label:'供应商联系电话',labelWidth:'150'},
+			],
+			campanyList:[],
+			y:[],
+			h:[],
+			f:[],
+			custId:''
+		},
+		methods:{
+			   tableheaderClassName({row, rowIndex}) {
+			        return "table-head-th";
+			      },
+			      //分页
+					handleSizeChange(val) { 
+						
+						console.log(`每页 ${val} 条`);
+					},
+					handleCurrentChange(val) { 
+						this.form.pageIndex = val;
+						this.getCustInfo(this.form)
+						
+						
+					},
+			      /*点击查询的方法   */
+			   onSubmit(){
+			    	  this.form.pageIndex = 1;
+			    	  this.form.pageSize = 10;
+			    	  this.getCustInfo(this.form);  
+			   },
+			   onchange(){
+				   this.form.busiCustIds ='';
+				   this.form.custConIds ='';
+				   this.form.conAcceIds ='';
+				   this.searchY(this.form.custIds)
+			   },
+			   onchange1(){
+				   this.form.custConIds ='';
+				   this.form.conAcceIds ='';
+				   this.searchH(this.form.busiCustIds)
+			   },
+			   onchange2(){
+				   this.form.conAcceIds ='';
+				   this.searchH_accessory(this.form.custConIds)
+			   },
+			   getCustInfo(data){
+					let _this = this;
+					_this.loading = true;
+					$.ajax({
+						type:'POST',
+						url:'../supinfo/getNatiCountSuppInfo',
+						data:data,
+						dataType: "json",
+						success:function(data){
+						_this.loading = false;
+						_this.tableData6 = [];
+						 _this.tableData = [];
+						_this.totalCount = data.successResult.totalCount;
+						_this.totalPages = data.successResult.totalPages;
+						_this.currentPage4 = data.successResult.currentPage;
+						if(data.successResult){
+							 data.successResult.suppInfoList.forEach(function(item){
+								 _this.tableData.push(item)
+							 });
+								let json = {};
+								let {areaSum,busiCustSum,conAcceSum,conSum,custSum,suppliserSum} = data.successResult;
+								json = {areaSum,busiCustSum,conAcceSum,conSum,custSum,suppliserSum};
+								_this.tableData6.push(json)
+								
+						}
+					},error:function(req){
+						setTimeout(function(){
+							_this.loading = false;
+							alert("请求错误")
+						},2000)
+						
+					}
+			  }) 
+		  },
+		  /* 客户 */
+		  searchCampany(url,data,type){
+			  let _this = this;
+				$.ajax({
+					type:type,
+					url:url,
+					data:data,
+					dataType: "json",
+					success:function(data){
+						var arr = [];
+						 data.successResult.forEach(function(item){
+							 _this.campanyList.push(item);
+							 arr.push(item.custId)
+						 })
+						 var obj = {
+							 custName:'全部',
+							 custId:arr.join(",")
+						 }
+						 _this.campanyList.unshift(obj);
+						 _this.form.custIds = obj.custId;
+						 _this.getCustInfo(_this.form);
+						
+				}
+		  	}) 
+		  },
+		  /* 业务客户 */
+		  searchY(custIds){		 
+			  let _this = this;
+			  _this.y = [];
+				$.ajax({
+					type:'GET',
+					url:'../supinfo/getBusiCustListByCustId',
+					data:{'custId':custIds},
+					dataType: "json",
+					success:function(data){
+						data.successResult.forEach(function(item){
+							_this.y.push(item)
+						 })			
+				}
+		  	}) 
+		  },
+		  /* 合同 */
+		  searchH(busiCustId){
+			  let _this = this;
+			  _this.h=[];
+				$.ajax({
+					type:'GET',
+					url:'../supinfo/getCsCustConByDepCustId',
+					data:{'busiCustId':busiCustId},
+					dataType: "json",
+					success:function(data){
+					console.log(data.successResult)
+					data.successResult.forEach(function(item){
+						_this.h.push(item)
+					 })
+								
+				}
+		  	})
+		  },
+		 /*合同附件  */
+		  searchH_accessory(conId){
+			  let _this = this;
+				_this.f = [];
+				$.ajax({
+					type:'GET',
+					url:'../supinfo/getCsConAcceByConId',
+					data:{'conId':conId},
+					dataType: "json",
+					success:function(data){
+					console.log(data.successResult)
+					data.successResult.forEach(function(item){
+						_this.f.push(item)
+					 })
+								
+				}
+		  	})
+		  },
+	
+		},
+		mounted(){
+			
+		},
+		created(){
+			this.searchCampany('../customer/getCustInfo','','get')
+		}
+	})
+</script>
+</html>
+ 

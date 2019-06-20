@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>入职任务查询</title>
+    #parse("sys/header.html")
+    <script type="text/javascript"
+            src="${rc.contextPath}/statics/plugins/My97DatePicker/WdatePicker.js?v=_${date.systemTime}"></script>
+    <link rel="stylesheet" href="${rc.contextPath}/statics/css/byb.css?v=_${date.systemTime}">
+</head>
+<body>
+<div id="rrapp">
+    <table id="jqGrid"></table>
+    <div id="jqGridPager"></div>
+    <span><button id = 'gotoTaskCreate' class='btn btn-primary' type='button'>创建新任务</button></span>
+</div>
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">二维码、链接</h4>
+            </div>
+            
+            <div class="modal-body">
+	            <span>适用此入职模板的员工可通过此链接行注册使用入职功能:</span><br>
+	            <span id="pcUrl" style="font-size:20px" class="text-primary"></span>
+            </div>
+            <div class="modal-body">
+	            <span>适用此入职模板的员工可扫描此二维码进行注册使用入职功能:</span>
+	            <img id="pcImg" src=""/>
+            </div>
+           <!--  <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div> -->
+        </div>
+    </div>
+</div>
+
+
+<script src="${rc.contextPath}/js/entryonline/taskManagement.js?v=_${date.systemTime}"></script>
+<script src="${rc.contextPath}/statics/libs/bootstrap-modal.js"></script>
+
+
+</body>
+</html>

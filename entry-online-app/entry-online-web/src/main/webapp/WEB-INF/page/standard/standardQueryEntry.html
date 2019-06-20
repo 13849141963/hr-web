@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>员工入职情况查询</title>
+    #parse("sys/header.html")
+    <style>
+    	a:visit{
+    		text-decoration: none;
+    	}
+    	
+    	a:hover{
+    		text-decoration: none;
+    	}
+    	a{
+    		text-decoration: none;
+    	}
+        .row_se{
+            padding:8px 0;
+            /* border-bottom:1px solid #eeeeee; */
+        }
+        .row_se label{
+            width: 110px;
+            margin-left: 35px;
+            font-weight:normal;
+        }
+        .row_se label:first-child{
+            margin-left:0;
+        }
+        .grid-btn{
+            margin-bottom:10px;
+        }
+        .inputText{
+             vertical-align: middle;
+		    line-height: 13px;
+		    height: 18px;
+		    display: inline-block;
+        }
+    </style>
+    <script type="text/javascript" src="${rc.contextPath}/statics/plugins/My97DatePicker/WdatePicker.js?v=_${date.systemTime}"></script>
+	<link rel="stylesheet" href="${rc.contextPath}/statics/css/byb.css?v=_${date.systemTime}">
+</head>
+
+<body>
+    <div id="rrapp">
+        <div class="grid-btn" style="text-align:left;">
+             <div class="row_se"> 
+                <label>按任务编号检索：</label>
+                <input type="text" v-model="searchData.taskId" class="inputB" placeholder="" style="width: 150px;height:30px;padding:0 5px;">
+                <label>按雇员姓名检索：</label>
+                <input type="text" v-model="searchData.empName" class="inputB" placeholder="" style="width: 150px;height:30px;padding:0 5px;">  
+            </div>
+             <div class="row_se"> 
+                <label>按公司名称检索：</label>
+                  <input type="text" v-model="searchData.companyName" class="inputB" placeholder="" style="width: 150px;height:30px;padding:0 5px;">  
+               <!--   <select v-model="searchData.busiCustNos" class="inputB"  style="width: 150px;height:30px;padding:0px;">
+                    <option value="">请选择公司名称</option>
+                    <option v-for="option in companyNames" v-bind:value="option.busiCustId">
+                      {{ option.busiCustName }}
+                    </option>
+                </select>-->                
+                 <label>按身份证号检索：</label>
+                  <input type="text" v-model="searchData.idCode" class="inputB" placeholder="" style="width: 150px;height:30px;padding:0 5px;">  
+                  <label>&nbsp;&nbsp;&nbsp;&nbsp;按手机号检索：</label>
+                   <input type="text" v-model="searchData.mobile" class="inputB" placeholder="" style="width: 150px;height:30px;padding:0 5px;">     
+            </div>
+            <div class="row_se">   
+                <label>按员工状态检索：</label>
+                <select v-model="searchData.empStatus" class="inputB"  style="width: 150px;height:30px;padding:0px;">
+                    <option value="">请选择员工状态</option>
+                    <option v-for="option in EmpStatus" v-bind:value="option.itemCode">
+                        {{ option.itemName }}
+                    </option>
+                </select>
+                <label>按订单开始日期：</label>
+                <input type="text" @focus="changeTime1()" v-model="searchData.orderStartTime" id="v-time1"  class="inputB" readonly="readonly"  style="width: 150px;height:30px;padding:0 5px;" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" placeholder="起始日期">
+                <input type="text" @focus="changeTime2()" v-model="searchData.orderEndTime" id="v-time2"  class="inputB" readonly="readonly"  style="width: 150px;height:30px;padding:0 5px;" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" placeholder="截止日期">
+            </div>
+             <div class="row_se"> 
+                <label>按手续状态检索：</label>
+                <select v-model="searchData.procedureType" class="inputB"  style="width: 150px;height:30px;padding:0px;">
+                    <option value="">请选择手续类别</option>
+                    <option v-for="option in ProceduresList" v-bind:value="option.itemCode">
+                        {{ option.itemName }}
+                    </option>
+                </select>
+                <select v-model="searchData.procedureStatus" class="inputB"  style="width: 150px;height:30px;padding:0px;">
+                    <option value="">请选择手续状态</option>
+                    <option v-for="option in TaskStatus" v-bind:value="option.itemCode">
+                        {{ option.itemName }}
+                    </option>
+                </select>  
+                 <button type="button" class="btn btn-primary btn-sm btn-toggledisabled" @click="search" style="margin-right:0;float: right;margin-top:2px"><i class="fa fa-search"></i>&nbsp;&nbsp;点击搜索</button> 
+            </div>         
+        </div>
+        <table id="jqGrid"></table>
+        <div id="jqGridPager"></div>
+    </div>
+    <script src="${rc.contextPath}/js/standard/standardQueryEntry.js?v=_${date.systemTime}"></script>
+</body>
+
+</html>

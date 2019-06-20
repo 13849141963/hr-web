@@ -1,0 +1,106 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>入职任务创建</title> 
+#parse("sys/header.html")
+<link rel="stylesheet" href="${rc.contextPath}/statics/css/byb.css?v=_${date.systemTime}">
+<link href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .rz_list strong{
+            margin-top:10px;
+            display: inline-block;
+        }
+        .guideContentDivInner strong{
+            margin-top:0px
+        }
+        .rz_list ul{
+            margin-left:30px;
+            list-style: none;
+        }
+        .rz_list ul li{
+            margin-top:10px;
+        }     
+        #guideInfoInnerUl li{
+            margin-top:0px;
+        }
+        #guideInfoInnerUl{
+        	margin-top:5px;
+        }
+        .guideEditor>div{
+         /*  position:static !important;*/
+        }
+        .guideContentDiv{
+           max-width:1300px;
+        }
+        .guideContentDivInner{         
+          padding:10px;
+          border-radius:5px;  
+        }
+        .guideContentDivInner p,.guideContentDivInner {
+           background: #e2e2e2fa !important;
+         }
+       .inputText{
+             vertical-align: middle;
+		    line-height: 11px;
+		    height: 18px;
+		    display: inline-block;
+        }
+        
+    </style>
+</head>
+<body>
+	<div id="rrapp" class="rz_list">
+		<strong>1.请您输入任务名称:</strong>
+		<input type="text" id="taskName" v-model="taskCreate.taskName" class="inputB" style="width: 200px;height:31px" placeholder="如：奇虎社保入职模板" /><br>
+		
+	    <strong>2.请选择入职任务对应的客户公司:</strong>
+<!-- 	<div class="checkbox">
+		<div v-for="(item,index) in taskCreate.customerCompany" >
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox"  :id="'a'+index" :value="item.orgId" v-model="submitTaskName.checkedCustomerIds"/>
+			<label :for="'a'+index">{{item.orgName}}</label>
+		</div>
+  	</div> -->
+  	
+        <ul>
+           <li v-for="item in taskCreate.customerCompany">
+              <input type="checkbox" name="customerCompany" :value="item.busiCustId+'&'+item.busiCustName"><span class="inputText">{{item.busiCustName}}</span>
+           </li>
+        </ul>  	
+	    <strong>3.请选择需要员工在线办理的入职手续:</strong>
+        <ul>
+           <li v-for="item in taskCreate.proceduresForEntry">
+              <input type="checkbox" name="entryProcedure" :value="item.procedureId"><span class="inputText">{{item.procedureName}}</span>
+           </li>
+        </ul>
+  	    <strong>4、请选择需要告知的员工入职办理指南信息：</strong>
+        <ul id="guideInfoUl">
+           <li v-for="item in taskCreate.guideInfo"> 
+             <input  class="guideInp" type="checkbox" name="guideInfo" @change="guideInpChangeFn" :value="item.guideId" ><span class="inputText">{{item.guideName}}</span>
+             <div class="guideContentDiv" style="display:none" >            
+	             <script :id=item.guideId+"_guideEditor"  class="guideEditor"  :data-guideId=item.guideId  style="" type="text/plain" ></script> 
+	             <div class="guideContentDivInner"  v-html=item.content style="margin-top:10px"></div>  
+	             <button type="button" class="btn btn-primary guideEditBtn" @click="guideEditFn"  style="background-color: #337ab7;border-color: #2e6da4;margin-top:5px; ">修改</button> 
+	             <button type="button" class="btn btn-primary guideEnsureBtn"  @click="guideEnsureFn"  disabled style="background-color: #337ab7;border-color: #2e6da4;margin-top:5px; ">确定</button> 
+	             <!--  <button type="button" class="btn btn-primary guideCancelBtn"  @click="guideCancelFn"   style="background-color: #337ab7;border-color: #2e6da4; ">取消</button>    -->
+             </div>
+           </li>
+        </ul>
+  	    <button id="submit" type="button" class="btn btn-primary"  style="background-color: #337ab7;border-color: #2e6da4; margin-top:10px;">下一步</button>
+	</div>
+	
+
+	<!-- 配置文件 -->
+	<script type="text/javascript" src="${rc.contextPath}/statics/plugins/ueditor/ueditor.config.js"></script>
+	<!-- 编辑器源码文件 -->
+	<script type="text/javascript" src="${rc.contextPath}/statics/plugins/ueditor/ueditor.all.js"></script>
+	<script type="text/javascript" charset="utf-8" src="${rc.contextPath}/statics/plugins/ueditor/lang/zh-cn/zh-cn.js"></script>
+	<script src="${rc.contextPath}/js/standard/standardTaskCreate.js?v=_${date.systemTime}"></script>
+
+</body>
+
+<script type="text/javascript">
+   
+</script>
+</html>

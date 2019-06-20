@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<menu-root id="menu-root">
+	<!-- <menu icon="fa fa-cog" menuId="1" name="系统管理111" type="0" url="" perms="sys:manage">
+		<menu icon="fa fa-user" menuId="2" name="日志管理" type="1" url="sys/log.html" perms="sys:log"/>
+		<menu icon="fa fa-user-secret" menuId="3" name="角色管理" type="1" url="sys/role.html" perms="sys:role"/>
+		<menu icon="fa fa-th-list" menuId="4" name="菜单管理" type="1" url="sys/menu.html" perms="sys:menu"/>
+		<menu icon="fa fa-bug" menuId="5" name="SQL监控" type="1" url="druid/sql.html" perms="druid:sql"/>
+		<menu icon="fa fa-tasks" menuId="6" name="定时任务" type="1" url="sys/schedule.html" perms="sys:schedule"/>
+		<menu icon="fa fa-sun-o" menuId="7" name="参数管理" type="1" url="sys/config.html" perms="sys:config"/>
+		<menu icon="fa fa-rocket" menuId="8" name="代码生成器" type="1" url="sys/generator.html" perms="sys:generator"/>
+	</menu> --> 
+	<menu icon="fa fa-plus-square" menuId="10" name="Onsite管理" type="0" url="" perms="medicare:manage">
+		<!-- <menu icon="fa fa-user" menuId="11" name="入职任务创建" type="1" url="entryOnline/docu.html" perms="reimb:docu"/> -->
+		<menu icon="fa fa-user" menuId="11" name="入职任务创建" type="1" url="entryOnline/taskCreate.html" perms="reimb:docu"/>
+		<menu icon="fa fa-user-secret" menuId="12" name="入职任务查询" type="1" url="entryOnline/queryTask.html" perms="reimb:entity"/>
+<!-- 		<menu icon="fa fa-th-list" menuId="13" name="社保电子材料审核查询" type="1" url="entryOnline/querySheBao.html" perms="reimb:data"/>
+ -->		<menu icon="fa fa-share" menuId="14" name="员工入职情况查询" type="1" url="entryOnline/queryEntry.html" perms="reimb:data"/>
+		<menu icon="fa fa-user-secret" menuId="15" name="员工入职情况查询(HR端)" type="1" url="entryOnline/queryEntryHR.html" perms="reimb:data"/>
+		<menu icon="fa fa-user-secret" menuId="16" name="客户信息" type="1" url="entryOnline/customersevivce.html" perms="reimb:data"/>
+		<menu icon="fa fa-user-secret" menuId="17" name="产品供应商服务信息" type="1" url="entryOnline/supinfo.html" perms="reimb:data"/>
+		<menu icon="fa fa-user-secret" menuId="18" name="员工入离职统计" type="1" url="entryOnline/empinexit.html" perms="reimb:data"/>
+		<menu icon="fa fa-user-secret" menuId="19" name="员工入职手续办理" type="1" url="entryOnline/empentryhandle.html" perms="reimb:data"/>
+		<menu icon="fa fa-user-secret" menuId="20" name="员工查询" type="1" url="entryOnline/employeequery.html" perms="reimb:data"/>
+		<menu icon="fa fa-user-secret" menuId="21" name="全国政策查询" type="1" url="entryOnline/policyquery.html" perms="reimb:data"/>
+		<menu icon="fa fa-user-secret" menuId="21" name="社保计算器" type="1" url="entryOnline/hfcalculator.html" perms="reimb:data"/>
+		<!-- <menu icon="fa fa-random" menuId="16" name="客户导入" type="1" url="entryOnline/customer.html" perms="reimb:customer"/>
+		<menu icon="fa fa-undo" menuId="17" name="状态回退" type="1" url="entryOnline/staback.html" perms="reimb:staback"/>
+		<menu icon="fa fa-exchange" menuId="18" name="数据导出" type="1" url="entryOnline/export.html" perms="reimb:export"/>
+		<menu icon="fa fa-user" menuId="19" name="onsite配置" type="1" url="entryOnline/onsite.html" perms="reimb:onsite"/> -->
+	</menu>
+
+
+	<menu icon="fa fa-plus-square" menuId="30" name="标准入职Onsite管理" type="0" url="" perms="medicare:manage">	
+		<!-- <menu icon="fa fa-user" menuId="31" name="入职任务新建" type="1" url="standard/standardTaskCreate.html" perms="reimb:docu"/>		 -->
+		<menu icon="fa fa-user-secret" menuId="32" name="入职任务管理" type="1" url="standard/standardQueryTask.html" perms="reimb:entity"/>		
+        <menu icon="fa fa-share" menuId="33" name="办理进度查询" type="1" url="standard/standardQueryEntry.html" perms="reimb:data"/>
+	</menu>
+</menu-root>

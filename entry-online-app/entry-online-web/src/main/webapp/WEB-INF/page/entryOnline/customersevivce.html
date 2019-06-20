@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>客户信息</title>
+
+<!-- 引入样式 -->
+<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<!-- 引入组件库 -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<style>
+	.el-table{
+		border-color:#cfcfcf;
+	}
+	.el-table td{
+		border-color:#cfcfcf;	
+		text-align: center;
+	}
+	.el-table td, .el-table th{
+		padding:0
+	}
+	.el-table .table-head-th {
+	    background: #f6f5f3;
+	    color: #000000;
+	    border-color:#cfcfcf;
+	    text-align: center;
+	    padding:7px 0;
+	  }
+	  .table—_footer{
+	  	width:100%;
+	  	height:40px;
+	  	background:#D7D7D7;
+	  }
+</style>
+</head>
+<body>
+	<div id="app">
+		<div>
+			<el-table ref="tableDataFrom"
+				v-loading="loading"
+				element-loading-text="拼命加载中"
+	    		:data="tableData"
+	    		:header-cell-class-name="tableheaderClassName"
+	   			 border
+	    		 style="width: 100%">
+	    		 <el-table-column v-for=" item in colList"
+	    				:prop="item.prop"
+			      		:label="item.label">
+	    			</el-table-column>
+	 	 	</el-table>
+	 	 	<div class="table—_footer"></div>
+		</div>
+	</div>
+</body>
+<script src="${rc.contextPath}/statics/libs/jquery.min.js"></script>
+<script>
+	new Vue({
+		el:"#app",
+		data:{
+			loading:false,
+			tableData:[],
+			colList:[
+			    {prop:'custNo',label:'客户编号'},
+			    {prop:'custName',label:'客户中文名称'},
+			    {prop:'orgaCode',label:'组织机构代码'},
+			    {prop:'staRep',label:'法人名称'},
+			    {prop:'comType',label:'公司类型'},
+			]
+		},
+		methods:{
+			 tableheaderClassName({row, rowIndex}) {
+			     return "table-head-th";
+			   },
+			   getCustInfo(){
+					let _this = this;
+					_this.loading = true;
+					$.ajax({
+						type:'POST',
+						url:'../customer/getCustInfo',
+						data:{},
+						dataType: "json",
+						success:function(data){
+								_this.loading = false;
+								_this.tableData = data.successResult;
+						}
+					}) 
+			   }
+		},
+		mounted:function(){
+		},
+		created:function(){
+		 	this.getCustInfo();
+		}
+	})
+	
+</script>
+</html>

@@ -1,0 +1,29 @@
+{
+	"code": "0",
+	"errorMsg": "",
+	"successResult": [{
+		"content": "<p style=\"user-select: text; font-family: 微软雅黑; font-size: 14px; white-space: normal; background-color: rgb(255, 255, 255); margin-top: 0px; margin-bottom: 0px; padding: 0px; width: 449px; transform: scale(1); transform-origin: left top 0px; text-overflow: clip;\">1、您已收到公司的入职通知书或已到指定入职体检医院办理完入职体检手续</p><p style=\"user-select: text; font-family: 微软雅黑; font-size: 14px; white-space: normal; background-color: rgb(255, 255, 255); margin-top: 0px; margin-bottom: 0px; padding: 0px; width: 449px; transform: scale(1); transform-origin: left top 0px; text-overflow: clip;\">2、请您与公司确认需与FESCO签署劳动合同</p><p style=\"user-select: text; font-family: 微软雅黑; font-size: 14px; white-space: normal; background-color: rgb(255, 255, 255); margin-top: 0px; margin-bottom: 0px; padding: 0px; width: 449px; transform: scale(1); transform-origin: left top 0px; text-overflow: clip;\">所需材料：上家单位开具的《解除劳动关系证明》（离职证明）原件</p><p style=\"user-select: text; font-family: 微软雅黑; font-size: 14px; white-space: normal; background-color: rgb(255, 255, 255); margin-top: 0px; margin-bottom: 0px; padding: 0px; width: 449px; transform: scale(1); transform-origin: left top 0px; text-overflow: clip;\"> 办理流程：请您携带上家单位开具的《解除劳动关系证明》（离职证明）原件前往服务中心办理合同签订手续。</p><p>    <br/></p>",
+		"createTime": "2018-02-08 18:46:36",
+		"busiType": 1,
+		"creatorName": "glm",
+		"guideId": 1,
+		"guideName": "劳动合同签署",
+		"creator": 1
+	}, {
+		"content": "",
+		"createTime": "2018-02-08 18:49:27",
+		"busiType": 1,
+		"creatorName": "glm",
+		"guideId": 2,
+		"guideName": "党员关系说明",
+		"creator": 1
+	}, {
+		"content": "",
+		"createTime": "2018-02-08 18:50:02",
+		"busiType": 1,
+		"creatorName": "glm",
+		"guideId": 3,
+		"guideName": "中行卡办理说明",
+		"creator": 1
+	}]
+}

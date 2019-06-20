@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>社保电子材料审核查询</title>
+    #parse("sys/header.html")
+    <script type="text/javascript" src="${rc.contextPath}/statics/plugins/My97DatePicker/WdatePicker.js?v=_${date.systemTime}"></script>
+	<link rel="stylesheet" href="${rc.contextPath}/statics/css/byb.css?v=_${date.systemTime}">
+</head>
+
+<body>
+    <div id="rrapp">
+        <div class="grid-btn" style="text-align:left">
+            <!-- <button type="button" class="btn btn-primary btn-sm btn-toggledisabled" @click="downloadDetail"><i class="fa fa-edit"></i>&nbsp;&nbsp;下载订单明细</button>
+			<button type="button" class="btn btn-primary btn-sm btn-toggledisabled" @click="downloadSummary"><i class="fa fa-edit"></i>&nbsp;&nbsp;下载索赔申请单</button> -->
+			<span>按审核进度检索</span>
+            <select v-model="searchData.insStatus" class="inputB"  style="width: 120px;height:30px;padding:0px;">
+                <option v-for="option in checkStatus" v-bind:value="option.itemCode">
+                    {{ option.itemName }}
+                </option>
+            </select>
+            <span>员工类型</span>
+            <select v-model="searchData.jobType" class="inputB"  style="width: 130px;height:30px;padding:0px;">
+                <option v-for="option in jobTypes" v-bind:value="option.itemCode">
+                    {{ option.itemName }}
+                </option>
+            </select>
+            <span>员工状态</span>
+            <select v-model="searchData.empStatus" class="inputB"  style="width: 130px;height:30px;padding:0px;">
+                <option v-for="option in empStatus" v-bind:value="option.itemCode">
+                    {{ option.itemName }}
+                </option>
+            </select>
+            <span>是否转入变更</span>
+            <select v-model="searchData.intoChangeFlag" class="inputB"  style="width: 130px;height:30px;padding:0px;">
+                <option v-for="option in switchStatus" v-bind:value="option.itemCode">
+                    {{ option.itemName }}
+                </option>
+            </select>
+            <br/>
+            <span>员工信息检索</span>
+            <select v-model="searchData.userInfoType" class="inputB"  style="width: 130px;height:30px;padding:0px;">
+                <option v-for="option in userInfoTypes" v-bind:value="option.itemCode">
+                    {{ option.itemName }}
+                </option>
+            </select>
+            <input v-model = "searchData.userInfoContent" placeholder="用户名/姓名">
+            <span>按所在公司检索</span>
+            <select v-model="searchData.companyName" class="inputB"  style="width: 130px;height:30px;padding:0px;">
+                <option v-for="option in companyNames" v-bind:value="option.orgId">
+                    {{ option.orgName }}
+                </option>
+            </select>
+            <button type="button" class="btn btn-primary btn-sm btn-toggledisabled" @click="search"><i class="fa fa-search"></i>&nbsp;&nbsp;点击搜索</button>
+
+            <button type='button' @click='getTeamReport1'>批量下载身份证</button>
+            <button type='button' @click='getTeamReport2'>批量下载户口本</button>
+
+        </div>
+        <table id="jqGrid"></table>
+        <div id="jqGridPager"></div>
+    </div>
+    <script src="${rc.contextPath}/js/entryonline/querySheBao.js?v=_${date.systemTime}"></script>
+</body>
+
+</html>

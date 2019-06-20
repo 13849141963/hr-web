@@ -1,0 +1,42 @@
+[
+    {
+        "icon": "fa fa-cog",
+        "list": [
+            {"icon": "fa fa-user", "list": null, "menuId": 2, "name": "管理员列表", "open": null, "orderNum": 1, "parentId": 1, "perms": null, "type": 1, "url": "sys/user.html"},
+            {"icon": "fa fa-user-secret", "list": null, "menuId": 3, "name": "角色管理", "open": null, "orderNum": 2, "parentId": 1, "perms": null, "type": 1, "url": "sys/role.html"},
+            {"icon": "fa fa-th-list", "list": null, "menuId": 4, "name": "菜单管理", "open": null, "orderNum": 3, "parentId": 1, "perms": null, "type": 1, "url": "sys/menu.html"},
+            {"icon": "fa fa-bug", "list": null, "menuId": 5, "name": "SQL监控", "open": null, "orderNum": 4, "parentId": 1, "perms": null, "type": 1, "url": "druid/sql.html"},
+            {"icon": "fa fa-tasks", "list": null, "menuId": 6, "name": "定时任务", "open": null, "orderNum": 5, "parentId": 1, "perms": null, "type": 1, "url": "sys/schedule.html"},
+            {"icon": "fa fa-sun-o", "list": null, "menuId": 7, "name": "参数管理", "open": null, "orderNum": 6, "parentId": 1, "perms": "sys:config:list,sys:config:info,sys:config:save,sys:config:update,sys:config:delete", "type": 1, "url": "sys/config.html"},
+            {"icon": "fa fa-rocket", "list": null, "menuId": 8, "name": "代码生成器", "open": null, "orderNum": 7, "parentId": 1, "perms": "sys:generator:list,sys:generator:code", "type": 1, "url": "sys/generator.html"}
+        ],
+        "menuId": 1,
+        "name": "系统管理",
+        "open": 0,
+        "orderNum": 0,
+        "parentId": 0,
+        "perms": null,
+        "type": 0,
+        "url": null
+    },
+    {
+        "icon": "fa fa-plus-square",
+        "list": [
+            {"icon": "fa fa-user", "list": null, "menuId": 10, "name": "副本审核", "open": null, "orderNum": 1, "parentId": 9, "perms": "reimb:doc", "type": 1, "url": "reimb/docu.html"},
+            {"icon": "fa fa-user-secret", "list": null, "menuId": 11, "name": "实体审核", "open": null, "orderNum": 2, "parentId": 9, "perms": null, "type": 1, "url": "reimb/entity.html"},
+            {"icon": "fa fa-th-list", "list": null, "menuId": 12, "name": "数据查询", "open": null, "orderNum": 3, "parentId": 9, "perms": null, "type": 1, "url": "reimb/data.html"},
+            {"icon": "fa fa-share", "list": null, "menuId": 13, "name": "优先分配", "open": null, "orderNum": 4, "parentId": 9, "perms": null, "type": 1, "url": "reimb/priority.html"},
+            {"icon": "fa fa-tasks", "list": null, "menuId": 14, "name": "财务统计", "open": null, "orderNum": 5, "parentId": 9, "perms": null, "type": 1, "url": "reimb/statistical.html"},
+            {"icon": "fa fa-random", "list": null, "menuId": 15, "name": "客户导入", "open": null, "orderNum": 6, "parentId": 9, "perms":null, "type": 1, "url": "reimb/customer.html"},
+            {"icon": "fa fa-undo", "list": null, "menuId": 16, "name": "状态回退", "open": null, "orderNum": 7, "parentId": 9, "perms": null, "type": 1, "url": "reimb/staback.html"}
+        ],
+        "menuId": 9,
+        "name": "补医保管理",
+        "open": 1,
+        "orderNum": 0,
+        "parentId": 0,
+        "perms": null,
+        "type": 0,
+        "url": null
+    }
+]
