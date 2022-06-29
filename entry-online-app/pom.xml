@@ -35,7 +35,7 @@
         <cglib.version>3.1</cglib.version>
         <aspectjweaver.version>1.8.8</aspectjweaver.version>
         <ibatis.version>2.3.4.726</ibatis.version>
-        <poi.version>3.14</poi.version>
+        <poi.version>4.1.1</poi.version>
     </properties>
     <dependencies>
         <dependency>
